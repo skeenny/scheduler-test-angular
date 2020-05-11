@@ -14,7 +14,7 @@ export class SchedulerComponent implements OnInit {
     public selectedCategory: number[] = [];
     public selectedSorting = '';
     public searchValue: string = '';
-    public categories:ICategory[] = [];
+    public categories: ICategory[] = [];
     public tasks: ITask[] = [];
     public taskText: string = '';
     public filteredTasks: ITask[] = [];
@@ -62,7 +62,7 @@ export class SchedulerComponent implements OnInit {
             sorting = this.selectedSorting.split('_')
         }
         this.schedulerService.getTasks(sorting, this.selectedCategory).subscribe((tasks: ITask[]) => {
-            if(!this.selectedSorting){
+            if (!this.selectedSorting) {
                 let priorityTasks = tasks.filter(task => task.priority && !task.status);
                 let doneTasks = tasks.filter(task => task.status);
                 let normalTasks = tasks.filter(task => !task.status && !task.priority);

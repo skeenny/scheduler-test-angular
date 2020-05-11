@@ -46,7 +46,8 @@
                     </button>
                 </div>
             </div>
-            <app-tasks [tasks]='filteredTasks' [isLoadingTasks]="isLoadingTasks" (loadTasks)="loadTasks()" [categories]="categories"></app-tasks>
+            <app-tasks [tasks]='filteredTasks' [isLoadingTasks]="isLoadingTasks" (loadTasks)="loadTasks()"
+                [categories]="categories"></app-tasks>
             <mat-checkbox class="allTaskschkbx" id='allTaskschkbx' [ngModel]="isAllTasksDone" color="warn"
                 (change)="toggleAllTasks()">All tasks complete!</mat-checkbox>
         </div>

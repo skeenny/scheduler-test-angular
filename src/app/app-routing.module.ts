@@ -7,11 +7,11 @@ import { CategoriesComponent } from './components/categories/categories.componen
 const routes: Routes = [
     { path: '', redirectTo: 'scheduler', pathMatch: 'full' },
     { path: 'scheduler', component: SchedulerComponent },
-    { path: 'categories', component: CategoriesComponent}
+    { path: 'categories', component: CategoriesComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }

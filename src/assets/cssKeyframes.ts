@@ -28,7 +28,6 @@ export const TASK_PRIORIY_KEYFRAMES = [
     }
 ]
 
-
 export const TASK_DELETE_KEYFRAMES = [
     {
         opacity: '1'
@@ -37,6 +36,7 @@ export const TASK_DELETE_KEYFRAMES = [
         opacity: '0'
     }
 ]
+
 export const TASK_ADD_KEYFRAMES = [
     {
         opacity: '0'

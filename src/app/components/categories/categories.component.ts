@@ -53,7 +53,7 @@ export class CategoriesComponent implements OnInit {
         });
     }
 
-    deleteCategory(id){
+    deleteCategory(id) {
         this.schedulerService.deleteCategory(id).then(() => {
             this.loadCategories((err?: Error) => {
                 if (err) {
@@ -65,7 +65,7 @@ export class CategoriesComponent implements OnInit {
         });
     }
 
-    goToScheduler(){
+    goToScheduler() {
         this.router.navigate(['/scheduler']);
     }
 }

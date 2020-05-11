@@ -11,12 +11,12 @@ server.use(jsonServer.bodyParser)
 server.put('/tasks', (req, res) => {
     let tasks = req.body;
     tasks.map(task => {
-        request({ url: `http://localhost:3000/tasks/${task.id}`, method: 'PUT', json: task});
+        request({ url: `http://localhost:3000/tasks/${task.id}`, method: 'PUT', json: task });
     })
     res.send('OK');
 });
 
 server.use(router)
 server.listen(3000, () => {
-  console.log('JSON Server is running')
+    console.log('JSON Server is running')
 });

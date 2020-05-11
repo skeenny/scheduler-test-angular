@@ -49,7 +49,7 @@ export class TasksComponent {
         } else {
             this.taskBuffer.categories.push(category.id);
         }
-        this.taskBuffer.categories.sort(function(a, b) {
+        this.taskBuffer.categories.sort(function (a, b) {
             return a - b;
         });
     }

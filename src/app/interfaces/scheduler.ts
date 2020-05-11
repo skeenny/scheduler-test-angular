@@ -1,4 +1,4 @@
-export interface ITask{
+export interface ITask {
     id?: number;
     description: string;
     priority: boolean;
@@ -6,7 +6,7 @@ export interface ITask{
     categories: number[];
 }
 
-export interface ICategory{
+export interface ICategory {
     id?: number;
     title: string;
 }
