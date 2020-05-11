@@ -1,0 +1,54 @@
+<div class="scheduler">
+    <div class="container">
+        <div class="header">
+            <h2>Scheduler</h2>
+            <mat-form-field appearance="legacy">
+                <mat-label>Category</mat-label>
+                <mat-select [(ngModel)]="selectedCategory" multiple (selectionChange)="loadTasks()">
+                    <mat-option *ngFor="let category of categories" [value]="category.id">
+                        {{category.title}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+                <mat-label>Sort by</mat-label>
+                <mat-select [(ngModel)]="selectedSorting" (selectionChange)="sort()">
+                    <mat-option>-- None --</mat-option>
+                    <mat-optgroup label="By id">
+                        <mat-option value="id_asc">ASC</mat-option>
+                        <mat-option value="id_desc">DESC</mat-option>
+                    </mat-optgroup>
+                    <mat-optgroup label="By description">
+                        <mat-option value="description_asc">ASC</mat-option>
+                        <mat-option value="description_desc">DESC</mat-option>
+                    </mat-optgroup>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="input-form-field" appearance="legacy">
+                <mat-label>Search</mat-label>
+                <input matInput type="text" [(ngModel)]="searchValue" (keyup)="search()">
+            </mat-form-field>
+        </div>
+        <div class="body">
+            <div class="tasks-top">
+                <mat-form-field appearance="legacy" class='task-input'>
+                    <mat-label>Task</mat-label>
+                    <input matInput type="text" placeholder="Enter task description (max 50 symbols)"
+                        (keyUp.enter)="createTask(taskText)" [maxLength]="50" [(ngModel)]="taskText">
+                </mat-form-field>
+                <div class="tasks-top-buttons">
+                    <button class="button-add" mat-raised-button color="warn" (click)="createTask(taskText)"
+                        [disabled]="taskText === ''">
+                        <mat-icon>add</mat-icon>Add Task
+                    </button>
+                    <button mat-raised-button color="warn" (click)="goToCategories()">
+                        <mat-icon>add</mat-icon>Add Category
+                    </button>
+                </div>
+            </div>
+            <app-tasks [tasks]='filteredTasks' [isLoadingTasks]="isLoadingTasks" (loadTasks)="loadTasks()" [categories]="categories"></app-tasks>
+            <mat-checkbox class="allTaskschkbx" id='allTaskschkbx' [ngModel]="isAllTasksDone" color="warn"
+                (change)="toggleAllTasks()">All tasks complete!</mat-checkbox>
+        </div>
+    </div>
+</div>

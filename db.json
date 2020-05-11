@@ -1,0 +1,35 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "description": "Task 1",
+      "priority": false,
+      "status": false,
+      "categories": []
+    },
+    {
+      "id": 2,
+      "description": "Task 2",
+      "priority": false,
+      "status": false,
+      "categories": []
+    },
+    {
+      "id": 3,
+      "description": "Task 3",
+      "priority": false,
+      "status": false,
+      "categories": []
+    }
+  ],
+  "categories": [
+    {
+      "title": "Category 2",
+      "id": 2
+    },
+    {
+      "title": "Category 3",
+      "id": 3
+    }
+  ]
+}

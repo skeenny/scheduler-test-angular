@@ -1,0 +1,32 @@
+<div class="categories">
+    <div class="container">
+        <div class="header">
+            <h2>Categories</h2>
+        </div>
+        <div class="body">
+            <div class="categories-top">
+                <mat-form-field appearance="legacy" class='category-input'>
+                    <mat-label>Category</mat-label>
+                    <input matInput type="text" placeholder="Enter category (max 20 symbols)"
+                        (keyUp.enter)="createCategory(categoryText)" [maxLength]="20" [(ngModel)]="categoryText">
+                </mat-form-field>
+                <div class="categories-top-buttons">
+                    <button class="button-add" mat-raised-button color="warn" (click)="createCategory(categoryText)"
+                        [disabled]="categoryText === ''">
+                        <mat-icon>add</mat-icon>Add Category
+                    </button>
+                </div>
+
+            </div>
+            <div *ngFor="let category of categories" class="category">
+                <p class="category-text" matInput id="{{'input-' + category.id}}">{{category.title}}</p>
+                <button mat-button matSuffix mat-icon-button (click)="deleteCategory(category.id)">
+                    <mat-icon class="icon-color-disabled">close</mat-icon>
+                </button>
+            </div>
+            <button mat-raised-button color="warn" (click)="goToScheduler()">
+                <mat-icon>arrow_back</mat-icon>Back to scheduler
+            </button>
+        </div>
+    </div>
+</div>
