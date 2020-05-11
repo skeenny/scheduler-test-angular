@@ -1,40 +1,4 @@
 {
-  "tasks": [
-    {
-      "id": 1,
-      "description": "Task 1",
-      "priority": false,
-      "status": false,
-      "categories": [
-        3
-      ]
-    },
-    {
-      "id": 2,
-      "description": "Task 2",
-      "priority": false,
-      "status": false,
-      "categories": []
-    },
-    {
-      "id": 3,
-      "description": "Test task 1",
-      "priority": false,
-      "status": false,
-      "categories": []
-    },
-    {
-      "id": 4,
-      "description": "test task 2",
-      "priority": false,
-      "status": false,
-      "categories": []
-    }
-  ],
-  "categories": [
-    {
-      "title": "category 3",
-      "id": 3
-    }
-  ]
+  "tasks": [],
+  "categories": []
 }
