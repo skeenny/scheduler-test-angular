@@ -62,8 +62,16 @@ export class SchedulerComponent implements OnInit {
             sorting = this.selectedSorting.split('_')
         }
         this.schedulerService.getTasks(sorting, this.selectedCategory).subscribe((tasks: ITask[]) => {
-            this.tasks = tasks;
-            this.filteredTasks = tasks;
+            if(!this.selectedSorting){
+                let priorityTasks = tasks.filter(task => task.priority && !task.status);
+                let doneTasks = tasks.filter(task => task.status);
+                let normalTasks = tasks.filter(task => !task.status && !task.priority);
+                this.tasks = [...priorityTasks, ...normalTasks, ...doneTasks];
+                this.filteredTasks = [...priorityTasks, ...normalTasks, ...doneTasks];
+            } else {
+                this.tasks = tasks;
+                this.filteredTasks = tasks;
+            }
             if (tasks.length > 0) {
                 this.tasks.map(task => {
                     if (!task.status) {
