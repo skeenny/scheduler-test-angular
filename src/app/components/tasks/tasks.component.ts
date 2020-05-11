@@ -19,6 +19,7 @@ export class TasksComponent {
         isEditingTask: false,
         taskId: undefined
     }
+    public taskBuffer: ITask;
     public selectedCategories: number[] = [];
     constructor(private schedulerService: SchedulerService) {
     }
@@ -32,6 +33,7 @@ export class TasksComponent {
         });
         return isCategoryActive;
     }
+
     switchCategory(categoryId, taskId) {
         this.tasks.map(task => {
             if (task.id === taskId) {
@@ -44,6 +46,7 @@ export class TasksComponent {
             }
         });
     }
+
     getCategoryById(id) {
         let categoryTitle = null;
         this.categories.map(category => {
@@ -54,58 +57,37 @@ export class TasksComponent {
         return categoryTitle;
     }
 
-    switchEditor(taskId: number, critical: boolean = false) {
-        let input = <HTMLInputElement>document.getElementById('input-' + taskId);
-        if (critical) {
-            this.taskEditor = {
-                isEditingTask: false,
-                taskId: taskId
-            }
-            this.tasks.map(task => {
-                if (task.id === this.taskEditor.taskId) {
-                    input.value = task.description;
-                }
-            });
-        }
-        let editbtn = document.getElementById('editbtn-' + taskId);
-        input.disabled = !input.disabled;
-        if (!input.disabled) {
-            input.focus();
-            editbtn.className = editbtn.className.replace('disabled', 'enabled');
+    getInput(id) {
+        return <HTMLInputElement>document.getElementById('input-' + id);
+
+    }
+
+    editTask(task: ITask) {
+        if (this.taskBuffer && this.taskBuffer.id === task.id) {
+            this.taskBuffer = null;
+            this.getInput(task.id).value = task.description;
+        } else if (this.taskBuffer && this.taskBuffer.id !== task.id) {
+            this.getInput(this.taskBuffer.id).value = this.taskBuffer.description;
+            this.taskBuffer = task;
+            setTimeout(() => {
+                this.getInput(task.id).focus();
+            }, 0);
         } else {
-            editbtn.className = editbtn.className.replace('enabled', 'disabled');
+            this.taskBuffer = task;
+            setTimeout(() => {
+                this.getInput(task.id).focus();
+            }, 0);
         }
     }
 
-    completeEditing(task: ITask) {
-        let input = <HTMLInputElement>document.getElementById('input-' + task.id);
-        this.taskEditor = {
-            isEditingTask: false,
-            taskId: task.id
-        }
-        this.switchEditor(task.id);
-        if (input.value === "") {
-            this.switchEditor(task.id, true);
-        }
-        task.description = input.value;
-        this.schedulerService.updateTask(task.id, task).then(() => {
+    saveTask() {
+        this.taskBuffer.description = this.getInput(this.taskBuffer.id).value;
+        this.schedulerService.updateTask(this.taskBuffer.id, this.taskBuffer).then(() => {
+            this.taskBuffer = null;
             this.loadTasks.emit();
         }, (response: HttpErrorResponse) => {
             console.log(response.error.error);
         });
-    }
-
-    editTask(task: ITask) {
-        let input = <HTMLInputElement>document.getElementById('input-' + task.id);
-        if ((this.taskEditor.isEditingTask && this.taskEditor.taskId !== task.id) || !input.disabled) {
-            this.switchEditor(this.taskEditor.taskId, true);
-        } else {
-            this.switchEditor(task.id);
-            this.taskEditor = {
-                isEditingTask: true,
-                taskId: task.id
-            }
-        }
     }
 
     changeTaskState(task: ITask, state: string) {
@@ -131,7 +113,7 @@ export class TasksComponent {
     }
 
     deleteTask(id) {
-        this.switchEditor(id, true);
+        // this.switchEditor(id, true);
         document.getElementById('task-' + id).animate(TASK_DELETE_KEYFRAMES, 500);
         setTimeout(() => {
             this.tasks.map((originTask, index) => {
