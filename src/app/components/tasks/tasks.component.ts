@@ -24,27 +24,31 @@ export class TasksComponent {
     constructor(private schedulerService: SchedulerService) {
     }
 
-    isCategoryActive(category: ICategory, task: ITask) {
+    isCategoryActive(category: ICategory, task?: ITask) {
         let isCategoryActive = false;
-        task.categories.map(id => {
-            if (id === category.id) {
-                isCategoryActive = true;
-            }
-        });
+        if (task) {
+            task.categories.map(id => {
+                if (id === category.id) {
+                    isCategoryActive = true;
+                }
+            });
+        } else {
+            this.taskBuffer.categories.map(id => {
+                if (id === category.id) {
+                    isCategoryActive = true;
+                }
+            });
+        }
         return isCategoryActive;
     }
 
-    switchCategory(categoryId, taskId) {
-        this.tasks.map(task => {
-            if (task.id === taskId) {
-                let index = task.categories.indexOf(categoryId);
-                if (index !== -1) {
-                    task.categories.splice(index, 1);
-                } else {
-                    task.categories.push(categoryId);
-                }
-            }
-        });
+    switchCategory(category) {
+        let index = this.taskBuffer.categories.indexOf(category.id);
+        if (index >= 0) {
+            this.taskBuffer.categories.splice(index, 1);
+        } else {
+            this.taskBuffer.categories.push(category.id);
+        }
     }
 
     getCategoryById(id) {
@@ -65,9 +69,9 @@ export class TasksComponent {
     editTask(task: ITask) {
         if (this.taskBuffer && this.taskBuffer.id === task.id) {
             this.taskBuffer = null;
-            this.getInput(task.id).value = task.description;
+            this.loadTasks.emit();
         } else if (this.taskBuffer && this.taskBuffer.id !== task.id) {
-            this.getInput(this.taskBuffer.id).value = this.taskBuffer.description;
+            this.loadTasks.emit();
             this.taskBuffer = task;
             setTimeout(() => {
                 this.getInput(task.id).focus();

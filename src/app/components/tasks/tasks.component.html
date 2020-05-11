@@ -10,16 +10,25 @@
                 (change)="changeTaskState(task, 'status')"></mat-checkbox>
             <input type="text" class="task-text" [value]="task.description" (keyUp.esc)="editTask(task)"
                 (keyUp.enter)="saveTask(task)" matInput id="{{'input-' + task.id}}" [disabled]="!taskBuffer || taskBuffer.id !== task.id">
-            <mat-chip-list *ngIf="categories && !taskEditor.isEditingTask">
+
+
+
+            <mat-chip-list *ngIf="!taskBuffer || taskBuffer.id !== task.id">
                 <mat-chip class="mat-chip-enabled" *ngFor="let category of task.categories">
                     {{getCategoryById(category)}}
                 </mat-chip>
             </mat-chip-list>
-            <mat-chip-list *ngIf="categories && taskEditor.isEditingTask && taskEditor.taskId === task.id">
-                <mat-chip [ngClass]="{'mat-chip-enabled': isCategoryActive(category, task)}"
-                    *ngFor="let category of editedCategories" (click)="switchCategory(category, task.id)">{{getCategoryById(category)}}
+
+
+
+            <mat-chip-list *ngIf="taskBuffer && taskBuffer.id === task.id">
+                <mat-chip [ngClass]="{'mat-chip-enabled': taskBuffer.categories.indexOf(category.id) >= 0}"
+                    *ngFor="let category of categories" (click)="switchCategory(category)">{{category.title}}
                 </mat-chip>
             </mat-chip-list>
+
+
+            
         </div>
         <div class="task-buttons">
             <button mat-button matSuffix mat-icon-button (click)="changeTaskState(task, 'priority')">

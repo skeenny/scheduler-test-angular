@@ -5,7 +5,11 @@
       "description": "Task 1",
       "priority": false,
       "status": false,
-      "categories": []
+      "categories": [
+        3,
+        2,
+        1
+      ]
     },
     {
       "id": 2,
@@ -19,10 +23,17 @@
       "description": "Task 3",
       "priority": false,
       "status": false,
-      "categories": []
+      "categories": [
+        1,
+        4
+      ]
     }
   ],
   "categories": [
+    {
+      "title": "Category 1",
+      "id": 1
+    },
     {
       "title": "Category 2",
       "id": 2
@@ -30,6 +41,10 @@
     {
       "title": "Category 3",
       "id": 3
+    },
+    {
+      "title": "Category 4",
+      "id": 4
     }
   ]
 }
