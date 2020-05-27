@@ -3,7 +3,6 @@ import { SchedulerService } from '../../services/scheduler.service';
 import { ITask, ICategory } from '../../interfaces/scheduler';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { TASK_ADD_KEYFRAMES } from '../../../assets/cssKeyframes'
 
 @Component({
     selector: 'app-scheduler',
@@ -13,15 +12,15 @@ import { TASK_ADD_KEYFRAMES } from '../../../assets/cssKeyframes'
 export class SchedulerComponent implements OnInit {
     public selectedCategory: number[] = [];
     public selectedSorting = '';
-    public searchValue: string = '';
+    public searchValue = '';
     public categories: ICategory[] = [];
     public tasks: ITask[] = [];
-    public taskText: string = '';
+    public taskText = '';
     public filteredTasks: ITask[] = [];
-    public isLoadingTasks: boolean = false;
-    public isAllTasksDone: boolean = true;
+    public isLoadingTasks = false;
+    public isAllTasksDone = true;
     constructor(private schedulerService: SchedulerService,
-        private router: Router) {
+                private router: Router) {
     }
     ngOnInit() {
         this.loadCategories((err?: Error) => {
@@ -59,13 +58,13 @@ export class SchedulerComponent implements OnInit {
         this.isAllTasksDone = true;
         let sorting = null;
         if (this.selectedSorting) {
-            sorting = this.selectedSorting.split('_')
+            sorting = this.selectedSorting.split('_');
         }
         this.schedulerService.getTasks(sorting, this.selectedCategory).subscribe((tasks: ITask[]) => {
             if (!this.selectedSorting) {
-                let priorityTasks = tasks.filter(task => task.priority && !task.status);
-                let doneTasks = tasks.filter(task => task.status);
-                let normalTasks = tasks.filter(task => !task.status && !task.priority);
+                const priorityTasks = tasks.filter(task => task.priority && !task.status);
+                const doneTasks = tasks.filter(task => task.status);
+                const normalTasks = tasks.filter(task => !task.status && !task.priority);
                 this.tasks = [...priorityTasks, ...normalTasks, ...doneTasks];
                 this.filteredTasks = [...priorityTasks, ...normalTasks, ...doneTasks];
             } else {
@@ -77,7 +76,7 @@ export class SchedulerComponent implements OnInit {
                     if (!task.status) {
                         this.isAllTasksDone = false;
                     }
-                })
+                });
             }
             this.isLoadingTasks = false;
         }, (response: HttpErrorResponse) => {
@@ -97,16 +96,16 @@ export class SchedulerComponent implements OnInit {
     }
 
     createTask(description: string) {
-        if (description === "") {
+        if (description === '') {
             return;
         }
-        let task: ITask = {
+        const task: ITask = {
             id: 0,
-            description: description,
+            description,
             priority: false,
             status: false,
             categories: []
-        }
+        };
         this.taskText = '';
         this.addTask(task);
     }
@@ -125,7 +124,8 @@ export class SchedulerComponent implements OnInit {
 
     toggleAllTasks() {
         this.isAllTasksDone = !this.isAllTasksDone;
-        let changeTasks: ITask[] = []
+        let changeTasks: ITask[];
+        changeTasks = [];
         this.tasks.map(task => {
             if (task.status !== this.isAllTasksDone) {
                 task.status = this.isAllTasksDone;

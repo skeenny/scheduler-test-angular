@@ -32,7 +32,7 @@
         <div class="body">
             <div class="tasks-top">
                 <mat-form-field appearance="legacy" class='task-input'>
-                    <mat-label>Task</mat-label>
+                    <mat-label>Task (press enter to add)</mat-label>
                     <input matInput type="text" placeholder="Enter task description (max 50 symbols)"
                         (keyUp.enter)="createTask(taskText)" [maxLength]="50" [(ngModel)]="taskText">
                 </mat-form-field>

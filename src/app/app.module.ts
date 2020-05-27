@@ -8,7 +8,11 @@ import { TasksComponent } from './components/tasks/tasks.component';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIconModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule, MatProgressSpinnerModule, MatChipsModule, MatMenuModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
+import {    MatIconModule, MatFormFieldModule,
+            MatInputModule, MatButtonModule,
+            MatCheckboxModule, MatProgressSpinnerModule,
+            MatChipsModule, MatMenuModule,
+            MatSelectModule, MatSlideToggleModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SchedulerService } from './services/scheduler.service';
 import { HttpClientModule } from '@angular/common/http';

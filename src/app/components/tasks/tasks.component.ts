@@ -2,7 +2,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { ITask, ICategory } from 'src/app/interfaces/scheduler';
 import { SchedulerService } from 'src/app/services/scheduler.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { TASK_DONE_KEYFRAMES, TASK_PRIORIY_KEYFRAMES, TASK_DELETE_KEYFRAMES } from '../../../assets/cssKeyframes'
+import { TASK_DONE_KEYFRAMES, TASK_PRIORIY_KEYFRAMES, TASK_DELETE_KEYFRAMES } from '../../../assets/cssKeyframes';
 
 
 @Component({
@@ -11,14 +11,14 @@ import { TASK_DONE_KEYFRAMES, TASK_PRIORIY_KEYFRAMES, TASK_DELETE_KEYFRAMES } fr
     styleUrls: ['./tasks.component.sass']
 })
 export class TasksComponent {
-    @Output("loadTasks") loadTasks: EventEmitter<any> = new EventEmitter();
+    @Output('loadTasks') loadTasks: EventEmitter<any> = new EventEmitter();
     @Input() categories: ICategory[] = [];
     @Input() tasks: ITask[] = [];
-    @Input() isLoadingTasks: boolean = false;
+    @Input() isLoadingTasks = false;
     public taskEditor = {
         isEditingTask: false,
         taskId: undefined
-    }
+    };
     public taskBuffer: ITask;
     public selectedCategories: number[] = [];
     constructor(private schedulerService: SchedulerService) {
@@ -43,13 +43,13 @@ export class TasksComponent {
     }
 
     switchCategory(category) {
-        let index = this.taskBuffer.categories.indexOf(category.id);
+        const index = this.taskBuffer.categories.indexOf(category.id);
         if (index >= 0) {
             this.taskBuffer.categories.splice(index, 1);
         } else {
             this.taskBuffer.categories.push(category.id);
         }
-        this.taskBuffer.categories.sort(function (a, b) {
+        this.taskBuffer.categories.sort((a, b) => {
             return a - b;
         });
     }
@@ -65,8 +65,7 @@ export class TasksComponent {
     }
 
     getInput(id) {
-        return <HTMLInputElement>document.getElementById('input-' + id);
-
+        return <HTMLInputElement> document.getElementById('input-' + id);
     }
 
     editTask(task: ITask) {
@@ -105,9 +104,9 @@ export class TasksComponent {
             }
         });
         if (state === 'priority') {
-            document.getElementById('task-' + task.id).animate(TASK_PRIORIY_KEYFRAMES, 500)
+            document.getElementById('task-' + task.id).animate(TASK_PRIORIY_KEYFRAMES, 500);
         } else {
-            document.getElementById('task-' + task.id).animate(TASK_DONE_KEYFRAMES, 500)
+            document.getElementById('task-' + task.id).animate(TASK_DONE_KEYFRAMES, 500);
 
         }
         setTimeout(() => {

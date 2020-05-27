@@ -10,11 +10,11 @@ import { Router } from '@angular/router';
     styleUrls: ['./categories.component.sass']
 })
 export class CategoriesComponent implements OnInit {
-    public isLoadingCategories: boolean = false;
+    public isLoadingCategories = false;
     public categories: ICategory[] = [];
-    public categoryText: string = '';
+    public categoryText = '';
     constructor(private schedulerService: SchedulerService,
-        private router: Router) {
+                private router: Router) {
     }
     ngOnInit() {
         this.loadCategories((err?: Error) => {
@@ -38,7 +38,7 @@ export class CategoriesComponent implements OnInit {
     }
 
     createCategory(categoryText) {
-        if (categoryText === "") {
+        if (categoryText === '') {
             return;
         }
         this.schedulerService.addCategory({ title: categoryText }).then(() => {
